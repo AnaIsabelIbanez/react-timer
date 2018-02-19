@@ -1,0 +1,21 @@
+# top-most EditorConfig file
+root = true
+
+# Set default charset
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+# Tab indentation
+indent_style = space
+indent_size = 4
+
+# Remove trailing white space
+trim_trailing_whitespace = true
+
+# Custom config for specific files
+[{package.json,.babelrc}]
+indent_style = space
+indent_size = 2
