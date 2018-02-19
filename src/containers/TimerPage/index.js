@@ -1,29 +1,30 @@
 import React, { Component } from 'react';
 import Grid from 'material-ui/Grid';
-import TasksList from '../TasksList';
-import CurrentTask from '../CurrentTask';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
-import {addTask, initTime, incrementTime, reset, setCurrentTask, stopTime} from './actions';
-import {getTasks} from './selectors';
-import {getCurrentTask} from '../CurrentTask/selectors';
+
+import TasksList from './TasksList';
+import CurrentTask from './CurrentTask';
+import { initTime, incrementTime, reset, setCurrentTask, stopTime, changeTaskName} from './actions';
+import {getTasks, getCurrentTask} from './selectors';
 
 class TimerPage extends Component {
 
     render() {
-        const { currentTask, addTask, setCurrentTask, initTime, incrementTime, reset, stopTime} = this.props;
+        const { tasks, currentTask, setCurrentTask, initTime, stopTime, changeTaskName} = this.props;
         return (
             <Grid container>
                 <CurrentTask
                     currentTask={currentTask}
                     initTime={initTime}
-                    incrementTime={incrementTime}
-                    reset={reset}
                     setCurrentTask={setCurrentTask}
                     stopTime={stopTime}
+                    setCurrentTask={setCurrentTask}
+                    changeTaskName={changeTaskName}
                 />
                 <Grid container item>
                     <TasksList
+                        tasks={tasks}
                         setCurrentTask={setCurrentTask}
                     />
                 </Grid>
@@ -36,16 +37,17 @@ TimerPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentTask: getCurrentTask()
+    currentTask: getCurrentTask(),
+    tasks: getTasks()
 });
 
 const mapDispatchToProps = {
-    addTask,
     setCurrentTask,
     initTime,
     incrementTime,
     reset,
-    stopTime
+    stopTime,
+    changeTaskName
 };
 
 export default connect(

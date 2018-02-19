@@ -1,14 +1,19 @@
 import { createSelector } from 'reselect';
 
 const makeSelector = (state) => {
-    return state.currentTask;
+    return state.timerPage;
 };
 
-const getCurrentTask = (attribute) => createSelector(
+const makeSelect = (attribute) => createSelector(
     makeSelector,
-    (timerState) => timerState
+    (timerState) => timerState[attribute]
 );
 
+const getTasks = () => makeSelect('tasks');
+
+const getCurrentTask = () => makeSelect('currentTask');
+
 export {
-    getCurrentTask
+    getCurrentTask,
+    getTasks
 };

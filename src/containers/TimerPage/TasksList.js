@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
 
-import Task from '../Task';
+import Task from './Task';
 import { getDayByTimesptamp } from '../../utils/utilities';
 
 

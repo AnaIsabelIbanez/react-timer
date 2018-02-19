@@ -1,8 +1,8 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
 
-import Clock from './Clock';
-import Hour from './Hour';
+import Clock from '../../components/Clock';
+import Hour from '../../components/Hour';
 
 export default ({taskExecution, updateTask}) => {
     return (

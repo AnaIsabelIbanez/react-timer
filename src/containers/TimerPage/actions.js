@@ -1,5 +1,4 @@
-import { ADD_TASK, INCREMENT_TIME, STOP_TIME, RESET, INIT_TIME } from './constants';
-import {SET_TASK} from '../CurrentTask/constants';
+import {ADD_TASK, INCREMENT_TIME, STOP_TIME, RESET, INIT_TIME, SET_TASK, CHANGE_TASK_NAME} from './constants';
 
 export const addTask = (currentTask) => ({
     type: ADD_TASK,
@@ -25,4 +24,9 @@ export const reset = () => ({
 export const setCurrentTask = (task) => ({
     type: SET_TASK,
     payload: task
+});
+
+export const changeTaskName = (taskName) => ({
+    type: CHANGE_TASK_NAME,
+    payload: taskName
 });
