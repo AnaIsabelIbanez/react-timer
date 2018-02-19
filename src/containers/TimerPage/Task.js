@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
 
-import TaskExecution from '../components/TaskExecution';
+import TaskExecution from './TimerPage/TaskExecution';
 
 export default class Task extends React.Component {
 
