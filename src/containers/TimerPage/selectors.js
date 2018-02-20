@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 const makeSelector = (state) => {
-    return state.timerPage;
+    return state.timer;
 };
 
 const makeSelect = (attribute) => createSelector(

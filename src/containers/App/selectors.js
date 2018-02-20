@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 const selectApp = (state) => {
-    return state.app;
+    return state.global;
 }
 
 const makeSelect = (attribute) => createSelector(

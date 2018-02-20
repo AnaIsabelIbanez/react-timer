@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
@@ -6,14 +7,18 @@ import { Grid, Button, TextField} from 'material-ui';
 
 import { changeUsername, changePassword, doLogin } from './actions';
 import { getUsername, getPassword } from './selectors';
+import injectReducer from '../../utils/injects/injectReducer';
+import injectSaga from '../../utils/injects/injectSaga';
+import reducer from './reducer';
+import saga from './saga';
 
 
 class Login extends Component {
 
     doLogin = ev => {
-         const { username, password } = this.props;
-         ev.preventDefault();
-         this.props.doLogin({username, password});
+        const { username, password } = this.props;
+        ev.preventDefault();
+        this.props.doLogin({username, password});
     };
 
     render() {
@@ -48,7 +53,7 @@ class Login extends Component {
                                 />
                             </Grid>
 
-                            <Grid style={{ textAlign: 'center' }} xs={12} item>
+                            <Grid xs={12} item>
                                 <Button type="submit" color="primary">
                                     Login
                                 </Button>
@@ -75,4 +80,13 @@ const mapDispatchToProps = {
     doLogin
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+const withReducer = injectReducer({ key: 'login', reducer });
+const withSaga = injectSaga({ key: 'login', saga });
+
+export default compose(
+    withReducer,
+    withSaga,
+    withConnect,
+)(Login);

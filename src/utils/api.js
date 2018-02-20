@@ -69,13 +69,6 @@ export default class Api {
         if (response.ok) {
             return parsedBody;
         }
-        switch (response.status) {
-            case 401:
-            case 403:
-                window.location.href = '#/login';
-            default:
-        }
-
         throw new BackendError(response, parsedBody);
     }
 

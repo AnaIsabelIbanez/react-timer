@@ -1,6 +1,6 @@
-import { duration, format } from 'moment';
+import { duration } from 'moment';
 import { compose } from 'ramda';
-import moment from "moment/moment";
+import moment from 'moment/moment';
 
 const pad = (t) => t < 10 ? `0${t}` : `${t}`;
 

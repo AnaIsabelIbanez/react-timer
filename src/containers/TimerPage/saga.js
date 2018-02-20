@@ -4,7 +4,6 @@ import { addTask, incrementTime, reset, initTime } from './actions';
 import { getCurrentTask } from './selectors';
 import { STOP_TIME, SET_TASK } from './constants';
 
-
 export default function* runTimer() {
     const channel = yield actionChannel(SET_TASK);
 
@@ -20,7 +19,6 @@ export default function* runTimer() {
                 yield put(incrementTime());
             } else {
                 const currentTask = yield select(getCurrentTask());
-                console.log('currentTask', currentTask);
                 yield put(addTask(currentTask));
                 yield put(reset());
                 break;

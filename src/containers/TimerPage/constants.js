@@ -5,3 +5,6 @@ export const STOP_TIME = 'TimerPage/STOP_TIME';
 export const RESET = 'TimerPage/RESET';
 export const CHANGE_TASK_NAME = 'TimerPage/CHANGE_TASK_NAME';
 export const SET_TASK = 'TimerPage/SET_TASK';
+export const TOGGLE_EXECUTIONS = 'TimerPage/TOGGLE_EXECUTIONS';
+export const STATUS_RUNNING = 'running';
+export const STATUS_STOPPED = 'stopped';
