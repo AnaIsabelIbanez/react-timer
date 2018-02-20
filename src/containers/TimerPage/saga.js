@@ -1,8 +1,8 @@
 import { actionChannel, call, take, put, race, select } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { addTask, incrementTime, reset, initTime } from '../containers/TimerPage/actions';
-import { getCurrentTask } from '../containers/TimerPage/selectors';
-import { STOP_TIME, SET_TASK } from '../containers/TimerPage/constants';
+import { addTask, incrementTime, reset, initTime } from './actions';
+import { getCurrentTask } from './selectors';
+import { STOP_TIME, SET_TASK } from './constants';
 
 
 export default function* runTimer() {
