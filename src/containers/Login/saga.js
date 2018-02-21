@@ -7,7 +7,6 @@ import { getUsername } from './selectors';
 
 export function* doLogin() {
     const username = yield select(getUsername());
-    const requestURL = `http://api/login/${username}`;
 
     const getLogin = (username) => ({
         user: username

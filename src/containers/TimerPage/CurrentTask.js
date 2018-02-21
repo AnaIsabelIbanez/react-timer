@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, TextField } from 'material-ui';
+import { Grid } from 'material-ui';
 import styled from 'styled-components';
 
 import Clock from '../../components/Clock';

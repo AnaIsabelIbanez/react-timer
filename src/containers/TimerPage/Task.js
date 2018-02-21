@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, List, ListItem, ListItemText, ListItemIcon, Collapse } from 'material-ui';
-import { ExpandLess, ExpandMore, StarBorder }  from 'material-ui-icons';
+import { Grid, List, Collapse } from 'material-ui';
+import { ExpandLess, ExpandMore }  from 'material-ui-icons';
 import styled from 'styled-components';
 import Clock from '../../components/Clock';
 import Hour from '../../components/Hour';
@@ -44,7 +44,7 @@ export default ({task, updateTask, toggleExecutions}) => {
                     <Clock seconds={task.seconds}/>
                 </Grid>
                 <Grid item md={1}>
-                    <img onClick={updateTask} src="/img/playexecution.png"/>
+                    <img alt="Play" onClick={updateTask} src="/img/playexecution.png"/>
                 </Grid>
                 <Grid item md={1}>
                     { severalExecutions && (showExecutions ? <ExpandLess/> : <ExpandMore/>) }
