@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { Grid, Button, TextField} from 'material-ui';
 
@@ -81,12 +80,11 @@ const mapDispatchToProps = {
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
 const withReducer = injectReducer({ key: 'login', reducer });
 const withSaga = injectSaga({ key: 'login', saga });
 
 export default compose(
     withReducer,
     withSaga,
-    withConnect,
+    withConnect
 )(Login);

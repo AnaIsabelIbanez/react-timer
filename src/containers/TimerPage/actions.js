@@ -1,4 +1,13 @@
-import {ADD_TASK, INCREMENT_TIME, STOP_TIME, RESET, INIT_TIME, SET_TASK, CHANGE_TASK_NAME, TOGGLE_EXECUTIONS} from './constants';
+import {
+    ADD_TASK,
+    INCREMENT_TIME,
+    STOP_TIME,
+    RESET,
+    INIT_TIME,
+    SET_TASK,
+    CHANGE_TASK_NAME,
+    TOGGLE_EXECUTIONS
+} from './constants';
 
 export const addTask = (currentTask) => ({
     type: ADD_TASK,

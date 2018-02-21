@@ -1,6 +1,6 @@
 import React from 'react';
-import {Grid, List, ListItem, ListItemText, ListItemIcon, Collapse} from 'material-ui';
-import {ExpandLess, ExpandMore, StarBorder}  from 'material-ui-icons';
+import { Grid, List, ListItem, ListItemText, ListItemIcon, Collapse } from 'material-ui';
+import { ExpandLess, ExpandMore, StarBorder }  from 'material-ui-icons';
 import styled from 'styled-components';
 import Clock from '../../components/Clock';
 import Hour from '../../components/Hour';

@@ -1,5 +1,5 @@
 import React from 'react';
-import {getHourByTimestamp} from '../utils/utilities';
+import { getHourByTimestamp } from '../utils/utilities';
 
 export default ({timestamp}) => (
     <span>

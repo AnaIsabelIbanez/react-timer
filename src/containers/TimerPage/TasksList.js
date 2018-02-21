@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, List, ListItem, ListSubheader} from 'material-ui';
+import { Grid, List, ListItem, ListSubheader } from 'material-ui';
 
 import Task from './Task';
 import { getDayByTimesptamp } from '../../utils/utilities';

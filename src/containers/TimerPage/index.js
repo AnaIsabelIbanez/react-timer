@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
-import Grid from 'material-ui/Grid';
-import {connect} from 'react-redux';
-import {createStructuredSelector} from 'reselect';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 
 import TasksList from './TasksList';
 import CurrentTask from './CurrentTask';
 import CustomGrid from '../../components/CustomGrid';
-import { initTime, incrementTime, reset, setCurrentTask, stopTime, changeTaskName, toggleExecutions} from './actions';
-import {getTasks, getCurrentTask} from './selectors';
+import { initTime, incrementTime, reset, setCurrentTask, stopTime, changeTaskName, toggleExecutions } from './actions';
+import { getTasks, getCurrentTask } from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer';
