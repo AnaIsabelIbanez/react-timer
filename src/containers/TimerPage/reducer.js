@@ -8,7 +8,8 @@ import {
     RESET,
     TOGGLE_EXECUTIONS,
     STATUS_RUNNING,
-    STATUS_STOPPED
+    STATUS_STOPPED,
+    TOGGLE_ALL_EXECUTIONS
 } from './constants';
 
 import { getDayByTimesptamp } from '../../utils/utilities';
@@ -21,7 +22,47 @@ const initialState = {
         initialTime: null,
         finalTime: null
     },
-    tasks: []
+    tasks: [{
+        name: 'Algo',
+        seconds: 56,
+        status: STATUS_STOPPED,
+        initialTime: 1519136393162,
+        finalTime: 1519136366826,
+        executions: [{
+            name: 'Algo',
+            seconds: 56,
+            status: STATUS_STOPPED,
+            initialTime: 1519136393162,
+            finalTime: 1519136366826
+        }, {
+            name: 'Algo',
+            seconds: 56,
+            status: STATUS_STOPPED,
+            initialTime: 1519136393162,
+            finalTime: 1519136366826
+        }]
+    }, {
+        name: 'Algo2',
+        seconds: 56,
+        status: STATUS_STOPPED,
+        initialTime: 1419136393162,
+        finalTime: 1419136366826,
+        executions: [{
+            name: 'Algo',
+            seconds: 56,
+            status: STATUS_STOPPED,
+            initialTime: 1519136393162,
+            finalTime: 1519136366826
+        }, {
+            name: 'Algo',
+            seconds: 56,
+            status: STATUS_STOPPED,
+            initialTime: 1519136393162,
+            finalTime: 1519136366826
+        }]
+    }
+    ],
+    showAll: false
 };
 
 const setCurrentTask = (state, newAttributeCurrentTask) => {
@@ -62,6 +103,13 @@ const addTask = (tasks, executionToAdd) => {
     return copiedTasks;
 };
 
+const toggleAllExecutions = (tasks, visible) => {
+    return tasks.map((task) => {
+        task.showExecutions = visible;
+        return task;
+    });
+};
+
 const toggleExecution = (tasks, taskToUpdate) => {
     const copiedTasks = [...tasks];
     const foundTask = copiedTasks.find((task) => (areTheSameTasks(task, taskToUpdate)));
@@ -83,6 +131,13 @@ function TimerReducer(state = initialState, { type, payload }) {
             return setCurrentTask(state, {status: STATUS_STOPPED, finalTime: Date.now()});
         case SET_TASK:
             return setCurrentTask(state, {name: payload.name, seconds: 0});
+        case TOGGLE_ALL_EXECUTIONS:
+            const newShowAll = !state.showAll;
+            return {
+                ...state,
+                showAll: newShowAll,
+                tasks: toggleAllExecutions(state.tasks, newShowAll)
+            };
         case TOGGLE_EXECUTIONS:
             return {
                 ...state,

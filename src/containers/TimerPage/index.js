@@ -1,14 +1,23 @@
-import React, { Component } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React, {Component} from 'react';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 import styled from 'styled-components';
 
 import TasksList from './TasksList';
 import CurrentTask from './CurrentTask';
 import CustomGrid from '../../components/CustomGrid';
-import { initTime, incrementTime, reset, setCurrentTask, stopTime, changeTaskName, toggleExecutions } from './actions';
-import { getTasks, getCurrentTask } from './selectors';
+import {
+    initTime,
+    incrementTime,
+    reset,
+    setCurrentTask,
+    stopTime,
+    changeTaskName,
+    toggleExecutions,
+    toggleAllExecutions
+} from './actions';
+import {getTasks, getCurrentTask} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer';
@@ -30,7 +39,7 @@ const ListContainer = styled(CustomGrid)`
 class TimerPage extends Component {
 
     render() {
-        const { tasks, currentTask, setCurrentTask, initTime, stopTime, changeTaskName, toggleExecutions} = this.props;
+        const {tasks, currentTask, setCurrentTask, initTime, stopTime, changeTaskName, toggleExecutions, toggleAllExecutions} = this.props;
         return (
             <StyledGrid container>
                 <CurrentTask
@@ -40,11 +49,12 @@ class TimerPage extends Component {
                     stopTime={stopTime}
                     changeTaskName={changeTaskName}
                 />
-                {tasks.length >  0 && <ListContainer container>
+                {tasks.length > 0 && <ListContainer container>
                     <TasksList
                         tasks={tasks}
                         setCurrentTask={setCurrentTask}
                         toggleExecutions={toggleExecutions}
+                        toggleAllExecutions={toggleAllExecutions}
                     />
                 </ListContainer>}
             </StyledGrid>
@@ -52,8 +62,7 @@ class TimerPage extends Component {
     }
 };
 
-TimerPage.propTypes = {
-};
+TimerPage.propTypes = {};
 
 const mapStateToProps = createStructuredSelector({
     currentTask: getCurrentTask(),
@@ -67,12 +76,13 @@ const mapDispatchToProps = {
     reset,
     stopTime,
     changeTaskName,
-    toggleExecutions
+    toggleExecutions,
+    toggleAllExecutions
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({ key: 'timer', reducer });
-const withSaga = injectSaga({ key: 'timer', saga });
+const withReducer = injectReducer({key: 'timer', reducer});
+const withSaga = injectSaga({key: 'timer', saga});
 
 export default compose(
     withReducer,

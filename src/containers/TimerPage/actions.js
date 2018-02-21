@@ -6,7 +6,8 @@ import {
     INIT_TIME,
     SET_TASK,
     CHANGE_TASK_NAME,
-    TOGGLE_EXECUTIONS
+    TOGGLE_EXECUTIONS,
+    TOGGLE_ALL_EXECUTIONS
 } from './constants';
 
 export const addTask = (currentTask) => ({
@@ -43,4 +44,8 @@ export const changeTaskName = (taskName) => ({
 export const toggleExecutions = (task) => ({
     type: TOGGLE_EXECUTIONS,
     payload: task
+});
+
+export const toggleAllExecutions = () => ({
+    type: TOGGLE_ALL_EXECUTIONS
 });

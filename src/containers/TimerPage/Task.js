@@ -28,7 +28,7 @@ export default ({task, updateTask, toggleExecutions}) => {
     return (
         <Grid container>
             <Grid container>
-                <Grid item md={1} style={{textAlign: 'center'}}>
+                <Grid item md={1}>
                     {severalExecutions
                     && <NumberButton onClick={toggleExecutions}>
                         {task.executions.length}

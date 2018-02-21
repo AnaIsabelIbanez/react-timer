@@ -4,16 +4,13 @@ import { push } from 'react-router-redux';
 import {DO_LOGIN} from './constants';
 import { setUser } from '../App/actions';
 import { getUsername } from './selectors';
+import { doLogin as apiLogin } from '../../api/user';
 
 export function* doLogin() {
     const username = yield select(getUsername());
 
-    const getLogin = (username) => ({
-        user: username
-    })
-
     try {
-        const user = yield call(getLogin, username);
+        const user = yield call(apiLogin, { username });
         yield put(setUser(user));
         yield put(push('/timer'));
     } catch (err) {
