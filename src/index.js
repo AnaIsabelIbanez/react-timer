@@ -2,18 +2,20 @@ import './style/default.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { HashRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
 
 import App from './containers/App';
 import configureStore from './configureStore';
 
-
-const store = configureStore({});
+const history = createHistory();
+const store = configureStore({}, history);
 
 ReactDOM.render(
     <Provider store={store}>
-        <HashRouter>
+        <Router history={history}>
             <App />
-        </HashRouter>
+        </Router>
     </Provider>, document.getElementById('root')
 );

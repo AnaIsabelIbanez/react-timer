@@ -1,7 +1,8 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
+
 import {DO_LOGIN} from './constants';
 import { setUser } from '../App/actions';
-
 import { getUsername } from './selectors';
 
 export function* doLogin() {
@@ -15,6 +16,7 @@ export function* doLogin() {
     try {
         const user = yield call(getLogin, username);
         yield put(setUser(user));
+        yield put(push('/timer'));
     } catch (err) {
         console.log('error in login');
     }

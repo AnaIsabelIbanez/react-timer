@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { compose } from 'redux';
 import {PropTypes} from 'prop-types';
+import { withRouter } from 'react-router';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
@@ -21,9 +22,9 @@ class App extends Component {
                 <Header/>
                 <div>
                     <Switch>
-                        {user && <Route path="/" component={Login} exact/>}
-                        {user && <Route path="/timer" render={() => <Redirect to="/"/>}/>}
-                        {!user && <Route path="/" component={Timer}/>}
+                        {!user && <Route exact path="/timer" render={() => (<Redirect to="/"/>)}/>}
+                        {!user && <Route path="/" component={Login} exact/>}
+                        <Route path="/timer" component={Timer}/>
                     </Switch>
                 </div>
             </div>
@@ -39,8 +40,8 @@ const withConnect = connect(mapStateToProps, {});
 
 const withReducer = injectReducer({ key: 'global', reducer });
 
-export default compose(
+export default withRouter(compose(
     withReducer,
     withConnect,
-)(App);
+)(App));
 
