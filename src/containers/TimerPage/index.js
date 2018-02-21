@@ -41,13 +41,13 @@ class TimerPage extends Component {
                     stopTime={stopTime}
                     changeTaskName={changeTaskName}
                 />
-                <ListContainer container>
+                {tasks.length >  0 && <ListContainer container>
                     <TasksList
                         tasks={tasks}
                         setCurrentTask={setCurrentTask}
                         toggleExecutions={toggleExecutions}
                     />
-                </ListContainer>
+                </ListContainer>}
             </StyledGrid>
         );
     }

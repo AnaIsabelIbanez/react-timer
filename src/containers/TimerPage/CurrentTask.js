@@ -19,40 +19,40 @@ const StyledClock = styled(Clock)`
         text-align: center;
         color: #7b7b7b;
         white-space: nowrap;
-        font-size: 15px;
+        font-size: 20px;
     `;
+
+const StyledInput = styled.input`
+        border: 0;
+        font-size: 20px;
+        width: 100%;
+        padding-top: 15px;
+`;
 
 export default ({ currentTask, initTime, changeTaskName, setCurrentTask, stopTime }) => {
 
     return (
         <StyledGrid container>
-            <Grid md={8} item>
-                <Grid spacing={24} container>
-                    <Grid md={12} item>
-                        <form onSubmit={() => initTime()}>
-                            <TextField
-                                placeholder="What are you working on?"
-                                error={false}
-                                value={currentTask.name}
-                                onChange={({target}) => changeTaskName(target.value)}
-                                fullWidth
-                            />
-                        </form>
-                    </Grid>
-                </Grid>
+            <Grid md={10} item>
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    setCurrentTask(currentTask);
+                }}>
+                    <StyledInput
+                        placeholder="What are you working on?"
+                        value={currentTask.name}
+                        onChange={({target}) => changeTaskName(target.value)}
+                    />
+                </form>
             </Grid>
             <Grid md={2} item>
-                <Grid container>
-                    <Grid md={12} item>
+                <Grid container justify="flex-end" alignItems="center">
+                    <Grid item>
                         <StyledClock seconds={currentTask.seconds}/>
                     </Grid>
-                </Grid>
-            </Grid>
-            <Grid md={2} item>
-                <Grid spacing={24} container>
-                    <Grid xs={12} item>
-                        {currentTask.status === STATUS_STOPPED && <TimerButton onClick={() => setCurrentTask(currentTask)}>Play</TimerButton>}
-                        {currentTask.status === STATUS_RUNNING && <TimerButton onClick={() => stopTime()}>Cancel</TimerButton>}
+                    <Grid item>
+                        {currentTask.status === STATUS_STOPPED && <TimerButton onClick={() => setCurrentTask(currentTask)}/>}
+                        {currentTask.status === STATUS_RUNNING && <TimerButton pause onClick={() => stopTime()}/>}
                     </Grid>
                 </Grid>
             </Grid>

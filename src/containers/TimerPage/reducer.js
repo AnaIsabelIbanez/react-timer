@@ -21,20 +21,7 @@ const initialState = {
         initialTime: null,
         finalTime: null
     },
-    tasks: [{
-        name: 'Algo',
-        seconds: 56,
-        status: STATUS_STOPPED,
-        initialTime: 1519136393162,
-        finalTime: 1519136366826,
-        executions: [{
-            name: 'Algo',
-            seconds: 56,
-            status: STATUS_STOPPED,
-            initialTime: 1519136393162,
-            finalTime: 1519136366826
-        }]
-    }]
+    tasks: []
 };
 
 const setCurrentTask = (state, newAttributeCurrentTask) => {

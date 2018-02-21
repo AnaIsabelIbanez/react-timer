@@ -1,11 +1,14 @@
 import styled from 'styled-components';
-import Button from 'material-ui/Button';
 
-const TimerButton = styled(Button)`
- && {
-      background-image: url("../../img/imagePlay.png");
-      color: red
-    }
+const TimerButton = styled.button`
+  width: 48px;
+  height: 48px;
+  border:0;
+  cursor: pointer;
+  
+  background: ${props => props.pause ?
+    'url("/img/pause.png") no-repeat center center;' :
+    'url("/img/play.png") no-repeat center center;'};
 `;
 
 export default TimerButton;
