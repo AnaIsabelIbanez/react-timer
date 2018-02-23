@@ -1,6 +1,6 @@
 import {
     ADD_TASK,
-    CHANGE_TASK_NAME,
+    CHANGE_CURRENT_TASK_NAME,
     SET_TASK,
     INCREMENT_TIME,
     INIT_TIME,
@@ -9,10 +9,14 @@ import {
     TOGGLE_EXECUTIONS,
     STATUS_RUNNING,
     STATUS_STOPPED,
-    TOGGLE_ALL_EXECUTIONS
+    TOGGLE_ALL_EXECUTIONS,
+    CHANGE_VISIBLE_DAY,
+    SET_TASKS,
+    CHANGE_TASK_NAME
 } from './constants';
 
-import { getDayByTimesptamp } from '../../utils/utilities';
+import { getDayByTimesptamp, addDays } from '../../utils/utilities';
+import moment from 'moment/moment';
 
 const initialState = {
     currentTask: {
@@ -22,47 +26,9 @@ const initialState = {
         initialTime: null,
         finalTime: null
     },
-    tasks: [{
-        name: 'Algo',
-        seconds: 56,
-        status: STATUS_STOPPED,
-        initialTime: 1519136393162,
-        finalTime: 1519136366826,
-        executions: [{
-            name: 'Algo',
-            seconds: 56,
-            status: STATUS_STOPPED,
-            initialTime: 1519136393162,
-            finalTime: 1519136366826
-        }, {
-            name: 'Algo',
-            seconds: 56,
-            status: STATUS_STOPPED,
-            initialTime: 1519136393162,
-            finalTime: 1519136366826
-        }]
-    }, {
-        name: 'Algo2',
-        seconds: 56,
-        status: STATUS_STOPPED,
-        initialTime: 1419136393162,
-        finalTime: 1419136366826,
-        executions: [{
-            name: 'Algo',
-            seconds: 56,
-            status: STATUS_STOPPED,
-            initialTime: 1519136393162,
-            finalTime: 1519136366826
-        }, {
-            name: 'Algo',
-            seconds: 56,
-            status: STATUS_STOPPED,
-            initialTime: 1519136393162,
-            finalTime: 1519136366826
-        }]
-    }
-    ],
-    showAll: false
+    tasks: [],
+    showAll: false,
+    visibleDay: moment()
 };
 
 const setCurrentTask = (state, newAttributeCurrentTask) => {
@@ -103,9 +69,9 @@ const addTask = (tasks, executionToAdd) => {
     return copiedTasks;
 };
 
-const toggleAllExecutions = (tasks, visible) => {
+const changeAllExecutions = (tasks = [], attribute, value) => {
     return tasks.map((task) => {
-        task.showExecutions = visible;
+        task[attribute] = value;
         return task;
     });
 };
@@ -117,9 +83,18 @@ const toggleExecution = (tasks, taskToUpdate) => {
     return copiedTasks;
 };
 
+const updateTaskName = (tasks, taskToUpdate, attribute, value) => {
+    const copiedTasks = [...tasks];
+    const task = copiedTasks.find((task) => (areTheSameTasks(task, taskToUpdate)));
+    task[attribute] = value;
+    task.executions = changeAllExecutions(task.executions, 'name', value);
+    return copiedTasks;
+};
+
 function TimerReducer(state = initialState, { type, payload }) {
+
     switch (type) {
-        case CHANGE_TASK_NAME:
+        case CHANGE_CURRENT_TASK_NAME:
             return setCurrentTask(state, {name: payload});
         case INCREMENT_TIME:
             return setCurrentTask(state, {seconds: state.currentTask.seconds + 1});
@@ -136,17 +111,32 @@ function TimerReducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 showAll: newShowAll,
-                tasks: toggleAllExecutions(state.tasks, newShowAll)
+                tasks: changeAllExecutions(state.tasks, 'showExecutions', newShowAll)
             };
         case TOGGLE_EXECUTIONS:
             return {
                 ...state,
                 tasks: toggleExecution(state.tasks, payload)
-            }
+            };
         case ADD_TASK:
             return {
                 ...state,
                 tasks: addTask(state.tasks, payload)
+            };
+        case CHANGE_VISIBLE_DAY:
+            return {
+                ...state,
+                visibleDay: addDays(state.visibleDay, payload)
+            };
+        case SET_TASKS:
+            return {
+                ...state,
+                tasks: payload
+            };
+        case CHANGE_TASK_NAME:
+            return {
+                ...state,
+                tasks: updateTaskName(state.tasks, payload.task, 'name', payload.value)
             };
         default:
             return state;

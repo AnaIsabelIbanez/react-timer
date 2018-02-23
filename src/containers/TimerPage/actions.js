@@ -5,9 +5,12 @@ import {
     RESET,
     INIT_TIME,
     SET_TASK,
-    CHANGE_TASK_NAME,
+    CHANGE_CURRENT_TASK_NAME,
     TOGGLE_EXECUTIONS,
-    TOGGLE_ALL_EXECUTIONS
+    TOGGLE_ALL_EXECUTIONS,
+    CHANGE_VISIBLE_DAY,
+    SET_TASKS,
+    CHANGE_TASK_NAME
 } from './constants';
 
 export const addTask = (currentTask) => ({
@@ -36,8 +39,8 @@ export const setCurrentTask = (task) => ({
     payload: task
 });
 
-export const changeTaskName = (taskName) => ({
-    type: CHANGE_TASK_NAME,
+export const changeCurrentTaskName = (taskName) => ({
+    type: CHANGE_CURRENT_TASK_NAME,
     payload: taskName
 });
 
@@ -48,4 +51,19 @@ export const toggleExecutions = (task) => ({
 
 export const toggleAllExecutions = () => ({
     type: TOGGLE_ALL_EXECUTIONS
+});
+
+export const changeVisibleDay = (days) => ({
+    type: CHANGE_VISIBLE_DAY,
+    payload: days
+});
+
+export const setTasks = (tasks) => ({
+    type: SET_TASKS,
+    payload: tasks
+});
+
+export const changeTaskName = (task, value) => ({
+    type: CHANGE_TASK_NAME,
+    payload: {task, value}
 });

@@ -13,15 +13,17 @@ import {
     reset,
     setCurrentTask,
     stopTime,
-    changeTaskName,
+    changeCurrentTaskName,
     toggleExecutions,
-    toggleAllExecutions
+    toggleAllExecutions,
+    changeVisibleDay,
+    changeTaskName
 } from './actions';
 import {getTasks, getCurrentTask} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer';
-import saga from './saga';
+import saga from './saga/rootSagas';
 
 const StyledGrid = styled(CustomGrid)`
     && {
@@ -38,8 +40,24 @@ const ListContainer = styled(CustomGrid)`
 
 class TimerPage extends Component {
 
+    componentWillMount() {
+        this.props.changeVisibleDay(0);
+    }
+
     render() {
-        const {tasks, currentTask, setCurrentTask, initTime, stopTime, changeTaskName, toggleExecutions, toggleAllExecutions} = this.props;
+        const {
+            tasks,
+            currentTask,
+            setCurrentTask,
+            initTime,
+            stopTime,
+            changeCurrentTaskName,
+            toggleExecutions,
+            toggleAllExecutions,
+            changeVisibleDay,
+            changeTaskName
+        } = this.props;
+
         return (
             <StyledGrid container>
                 <CurrentTask
@@ -47,7 +65,7 @@ class TimerPage extends Component {
                     initTime={initTime}
                     setCurrentTask={setCurrentTask}
                     stopTime={stopTime}
-                    changeTaskName={changeTaskName}
+                    changeCurrentTaskName={changeCurrentTaskName}
                 />
                 {tasks.length > 0 && <ListContainer container>
                     <TasksList
@@ -55,6 +73,8 @@ class TimerPage extends Component {
                         setCurrentTask={setCurrentTask}
                         toggleExecutions={toggleExecutions}
                         toggleAllExecutions={toggleAllExecutions}
+                        changeVisibleDay={changeVisibleDay}
+                        changeTaskName={changeTaskName}
                     />
                 </ListContainer>}
             </StyledGrid>
@@ -75,9 +95,11 @@ const mapDispatchToProps = {
     incrementTime,
     reset,
     stopTime,
-    changeTaskName,
+    changeCurrentTaskName,
     toggleExecutions,
-    toggleAllExecutions
+    toggleAllExecutions,
+    changeVisibleDay,
+    changeTaskName
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

@@ -1,11 +1,13 @@
 import React from 'react';
-import { Grid } from 'material-ui';
+import { Grid, IconButton } from 'material-ui';
 import styled from 'styled-components';
+import { PlayCircleFilled, Pause }  from 'material-ui-icons';
 
 import Clock from '../../components/Clock';
 import CustomGrid from '../../components/CustomGrid';
 import TimerButton from './TimerButton';
 import { STATUS_RUNNING, STATUS_STOPPED } from './constants';
+import StyledInput from '../../components/StyledInput';
 
 const StyledGrid = styled(CustomGrid)`
     && {
@@ -22,14 +24,12 @@ const StyledClock = styled(Clock)`
         font-size: 20px;
     `;
 
-const StyledInput = styled.input`
-        border: 0;
+const InputName = StyledInput.extend`
         font-size: 20px;
         width: 100%;
-        padding-top: 15px;
 `;
 
-export default ({ currentTask, initTime, changeTaskName, setCurrentTask, stopTime }) => {
+export default ({ currentTask, initTime, changeCurrentTaskName, setCurrentTask, stopTime }) => {
 
     return (
         <StyledGrid container>
@@ -38,10 +38,10 @@ export default ({ currentTask, initTime, changeTaskName, setCurrentTask, stopTim
                     e.preventDefault();
                     setCurrentTask(currentTask);
                 }}>
-                    <StyledInput
+                    <InputName
                         placeholder="What are you working on?"
                         value={currentTask.name}
-                        onChange={({target}) => changeTaskName(target.value)}
+                        onChange={({target}) => changeCurrentTaskName(target.value)}
                     />
                 </form>
             </Grid>
@@ -51,8 +51,8 @@ export default ({ currentTask, initTime, changeTaskName, setCurrentTask, stopTim
                         <StyledClock seconds={currentTask.seconds}/>
                     </Grid>
                     <Grid item>
-                        {currentTask.status === STATUS_STOPPED && <TimerButton onClick={() => setCurrentTask(currentTask)}/>}
-                        {currentTask.status === STATUS_RUNNING && <TimerButton pause onClick={() => stopTime()}/>}
+                        {currentTask.status === STATUS_STOPPED && <IconButton onClick={() => setCurrentTask(currentTask)}><PlayCircleFilled/></IconButton>}
+                        {currentTask.status === STATUS_RUNNING && <IconButton onClick={() => stopTime()}><Pause/></IconButton>}
                     </Grid>
                 </Grid>
             </Grid>

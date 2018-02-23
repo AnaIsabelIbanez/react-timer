@@ -12,8 +12,10 @@ const makeSelect = (attribute) => createSelector(
 const getTasks = () => makeSelect('tasks');
 
 const getCurrentTask = () => makeSelect('currentTask');
+const getVisibleDay = () => makeSelect('visibleDay');
 
 export {
     getCurrentTask,
-    getTasks
+    getTasks,
+    getVisibleDay
 };

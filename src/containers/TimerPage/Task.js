@@ -1,12 +1,13 @@
 import React from 'react';
-import { Grid, List, Collapse } from 'material-ui';
-import { ExpandLess, ExpandMore }  from 'material-ui-icons';
+import { Grid, List, Collapse, IconButton } from 'material-ui';
+import { ExpandLess, ExpandMore, PlayArrow }  from 'material-ui-icons';
 import styled from 'styled-components';
+
 import Clock from '../../components/Clock';
 import Hour from '../../components/Hour';
-
 import TaskExecution from './TaskExecution';
 import StyledListItem from './StyledListItem';
+import StyledInput from '../../components/StyledInput';
 
 const NumberButton = styled.button`
     && {
@@ -22,7 +23,11 @@ const ExecutionListItem = StyledListItem.extend`
      }
 `;
 
-export default ({task, updateTask, toggleExecutions}) => {
+const InputName = StyledInput.extend`
+        font-size: 15px;
+`;
+
+export default ({task, setCurrentTask, changeTaskName, toggleExecutions}) => {
     const severalExecutions = task.executions.length > 1;
     const showExecutions = severalExecutions && task.showExecutions === true;
     return (
@@ -30,12 +35,17 @@ export default ({task, updateTask, toggleExecutions}) => {
             <Grid container>
                 <Grid item md={1}>
                     {severalExecutions
-                    && <NumberButton onClick={toggleExecutions}>
+                    && <NumberButton onClick={() => toggleExecutions(task)}>
                         {task.executions.length}
                     </NumberButton>}
                 </Grid>
                 <Grid item md={7}>
-                    {task.name}
+                    <InputName
+                        onChange={({target}) => {
+                            changeTaskName(task, target.value);
+                        }}
+                        value={task.name}
+                    />
                 </Grid>
                 <Grid item md={1}>
                     <Hour timestamp={task.initialTime} /> - <Hour timestamp={task.finalTime} />
@@ -44,7 +54,9 @@ export default ({task, updateTask, toggleExecutions}) => {
                     <Clock seconds={task.seconds}/>
                 </Grid>
                 <Grid item md={1}>
-                    <img alt="Play" onClick={updateTask} src="/img/playexecution.png"/>
+                    <IconButton onClick={() => setCurrentTask(task)}>
+                        <PlayArrow/>
+                    </IconButton>
                 </Grid>
                 <Grid item md={1}>
                     { severalExecutions && (showExecutions ? <ExpandLess/> : <ExpandMore/>) }
