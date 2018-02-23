@@ -1,8 +1,8 @@
-import { actionChannel, call, take, put, race, select } from 'redux-saga/effects';
+import { actionChannel, call, take, put, race, select, fork, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import { addTask, incrementTime, reset, initTime } from './actions';
-import { getCurrentTask } from './selectors';
-import { STOP_TIME, SET_TASK } from './constants';
+import { addTask, incrementTime, reset, initTime } from '../actions';
+import { getCurrentTask } from '../selectors';
+import {STOP_TIME, SET_TASK} from '../constants';
 
 export default function* runTimer() {
     const channel = yield actionChannel(SET_TASK);
