@@ -27,4 +27,4 @@ export const getHourByTimestamp = (timeStamp) => {
 
 export const addDays = (moment, days) => {
     return moment.add(days, 'days');
-}
+};

@@ -1,5 +1,5 @@
 import {
-  SET_USER
+    SET_USER
 } from './constants';
 
 const initialState = {
@@ -12,7 +12,7 @@ function appReducer(state = initialState, {type, payload}) {
             return {
                 ...state,
                 user: payload
-            }
+            };
         default:
             return state;
     }

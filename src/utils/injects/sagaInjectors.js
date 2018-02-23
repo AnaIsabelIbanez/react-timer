@@ -81,6 +81,6 @@ export default function getInjectors(store) {
 
     return {
         injectSaga: injectSagaFactory(store, true),
-        ejectSaga: ejectSagaFactory(store, true),
+        ejectSaga: ejectSagaFactory(store, true)
     };
 }

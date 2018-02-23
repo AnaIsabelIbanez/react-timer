@@ -7,8 +7,8 @@ const TimerButton = styled.button`
   cursor: pointer;
   
   background: ${props => props.pause ?
-    'url("/img/pause.png") no-repeat center center;' :
-    'url("/img/play.png") no-repeat center center;'};
+        'url("/img/pause.png") no-repeat center center;' :
+        'url("/img/play.png") no-repeat center center;'};
 `;
 
 export default TimerButton;

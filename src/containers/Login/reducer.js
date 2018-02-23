@@ -19,7 +19,7 @@ function LoginReducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 password: payload.trim()
-            }
+            };
         default:
             return state;
     }
