@@ -22,8 +22,9 @@ class App extends Component {
                 <div>
                     <Switch>
                         {!user && <Route exact path="/timer" render={() => (<Redirect to="/"/>)}/>}
-                        {!user && <Route path="/" component={Login} exact/>}
-                        <Route path="/timer" component={Timer}/>
+                        {!user && <Route exact path="/" component={Login} />}
+                        {user && <Route exact path="/" render={() => (<Redirect to="/timer"/>)}/>}
+                        {user && <Route path="/timer" component={Timer}/>}
                     </Switch>
                 </div>
             </div>

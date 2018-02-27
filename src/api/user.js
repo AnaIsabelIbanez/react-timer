@@ -3,5 +3,4 @@ import Api from '../utils/api';
 const api = new Api();
 const baseUri = '/login';
 
-export const doLogin = (body) => api.post(`${baseUri}`, { body });
-// export const doLogin = (body) => body;
+export const doLogin = (body) => api.post(`${baseUri}`, {body});

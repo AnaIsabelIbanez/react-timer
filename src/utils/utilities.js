@@ -25,6 +25,10 @@ export const getHourByTimestamp = (timeStamp) => {
     return moment(timeStamp).format('HH:mm');
 };
 
+export const getTimeStampByIsoString = (isoString) => {
+    return new Date(isoString);
+};
+
 export const addDays = (moment, days) => {
     return moment.add(days, 'days');
 };

@@ -54,7 +54,7 @@ module.exports = {
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
-  devtool: shouldUseSourceMap ? 'source-map' : false,
+  devtool: true,
   // In production, we only want to load the polyfills and the app code.
   entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
@@ -90,7 +90,7 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-      
+
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -121,7 +121,7 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -149,7 +149,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+
               compact: true,
             },
           },
@@ -182,7 +182,7 @@ module.exports = {
                       options: {
                         importLoaders: 1,
                         minimize: true,
-                        sourceMap: shouldUseSourceMap,
+                        sourceMap: true,
                       },
                     },
                     {
@@ -281,7 +281,7 @@ module.exports = {
         // https://github.com/facebookincubator/create-react-app/issues/2488
         ascii_only: true,
       },
-      sourceMap: shouldUseSourceMap,
+      sourceMap: true,
     }),
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({

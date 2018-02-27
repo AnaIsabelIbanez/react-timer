@@ -15,7 +15,7 @@ import {
     CHANGE_TASK_NAME
 } from './constants';
 
-import { getDayByTimesptamp, addDays } from '../../utils/utilities';
+import {getDayByTimesptamp, addDays, getTimeStampByIsoString} from '../../utils/utilities';
 import moment from 'moment/moment';
 
 const initialState = {
@@ -42,7 +42,7 @@ const setCurrentTask = (state, newAttributeCurrentTask) => {
 };
 
 const areTheSameTasks = (taskA, taskB) => {
-    return taskA.name === taskB.name && getDayByTimesptamp(taskA.initialTime) ===  getDayByTimesptamp(taskB.initialTime);
+    return taskA.name === taskB.name && getDayByTimesptamp(taskA.initialTime) === getDayByTimesptamp(taskB.initialTime);
 };
 
 const createNewTask = (newExecution) => {
@@ -91,7 +91,20 @@ const updateTaskName = (tasks, taskToUpdate, attribute, value) => {
     return copiedTasks;
 };
 
-function TimerReducer(state = initialState, { type, payload }) {
+const getTasks = (tasks) => {
+    return tasks.map((task) => {
+        task.initialTime = getTimeStampByIsoString(task.initialTime);
+        task.finalTime = getTimeStampByIsoString(task.finalTime);
+        task.executions = task.executions.map((execution) => {
+            execution.initialTime = getTimeStampByIsoString(execution.initialTime);
+            execution.finalTime = getTimeStampByIsoString(execution.finalTime);
+            return execution;
+        });
+        return task;
+    });
+};
+
+function TimerReducer(state = initialState, {type, payload}) {
 
     switch (type) {
         case CHANGE_CURRENT_TASK_NAME:
@@ -131,7 +144,7 @@ function TimerReducer(state = initialState, { type, payload }) {
         case SET_TASKS:
             return {
                 ...state,
-                tasks: payload
+                tasks: getTasks(payload)
             };
         case CHANGE_TASK_NAME:
             return {

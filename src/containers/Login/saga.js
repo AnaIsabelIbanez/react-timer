@@ -1,18 +1,18 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
 
 import {DO_LOGIN} from './constants';
 import { setUser } from '../App/actions';
-import { getUsername } from './selectors';
+import { getUsername, getPassword } from './selectors';
 import { doLogin as apiLogin } from '../../api/user';
+
 
 export function* doLogin() {
     const username = yield select(getUsername());
+    const password = yield select(getPassword());
 
     try {
-        const user = yield call(apiLogin, { username });
+        const user = yield call(apiLogin, { username, password });
         yield put(setUser(user));
-        yield put(push('/timer'));
     } catch (err) {
         console.log('error in login');
     }
@@ -21,4 +21,3 @@ export function* doLogin() {
 export default function* login() {
     yield takeLatest(DO_LOGIN, doLogin);
 }
-
