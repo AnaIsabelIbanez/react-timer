@@ -45,30 +45,6 @@ const areTheSameTasks = (taskA, taskB) => {
     return taskA.name === taskB.name && getDayByTimesptamp(taskA.initialTime) === getDayByTimesptamp(taskB.initialTime);
 };
 
-const createNewTask = (newExecution) => {
-    return {
-        ...newExecution,
-        executions: [{
-            ...newExecution
-        }]
-    };
-};
-
-const addTask = (tasks, executionToAdd) => {
-    const copiedTasks = [...tasks];
-    const taskIndex = copiedTasks.findIndex((task) => (areTheSameTasks(task, executionToAdd)));
-    if (taskIndex > -1) {
-        const taskUpdate = copiedTasks[taskIndex];
-        taskUpdate.finalTime = executionToAdd.finalTime;
-        taskUpdate.seconds += executionToAdd.seconds;
-        taskUpdate.executions.push(executionToAdd);
-        taskUpdate.showExecutions = false;
-    } else {
-        copiedTasks.push(createNewTask(executionToAdd));
-    }
-    return copiedTasks;
-};
-
 const changeAllExecutions = (tasks = [], attribute, value) => {
     return tasks.map((task) => {
         task[attribute] = value;
@@ -130,11 +106,6 @@ function TimerReducer(state = initialState, {type, payload}) {
             return {
                 ...state,
                 tasks: toggleExecution(state.tasks, payload)
-            };
-        case ADD_TASK:
-            return {
-                ...state,
-                tasks: addTask(state.tasks, payload)
             };
         case CHANGE_VISIBLE_DAY:
             return {

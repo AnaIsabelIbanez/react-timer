@@ -1,10 +1,11 @@
 import Api from '../utils/api';
 
 const api = new Api();
-const baseUri = '/tasks';
+const baseUri = '/task';
 
 
 export const getTasks = (day) => api.get(`${baseUri}/${day.toISOString()}`);
+export const updateTask = (task) => api.post('/task', {body: ''});
 
 // example
 // [{

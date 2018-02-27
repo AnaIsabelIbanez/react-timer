@@ -6,3 +6,16 @@ export const setUser = user => {
         payload: user
     };
 };
+
+export const showModal = (options) => {
+    return {
+        type: 'SHOW_MODAL',
+        payload: options
+    };
+};
+
+export const hideModal = () => {
+    return {
+        type: 'HIDE_MODAL'
+    };
+};
