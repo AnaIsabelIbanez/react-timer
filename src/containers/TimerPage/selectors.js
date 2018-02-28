@@ -13,9 +13,13 @@ const getTasks = () => makeSelect('tasks');
 
 const getCurrentTask = () => makeSelect('currentTask');
 const getVisibleDay = () => makeSelect('visibleDay');
+const getShowSpinner = () => makeSelect('showSpinner');
+const getTaskToAdd = () => makeSelect('taskToAdd');
 
 export {
     getCurrentTask,
     getTasks,
-    getVisibleDay
+    getVisibleDay,
+    getShowSpinner,
+    getTaskToAdd
 };

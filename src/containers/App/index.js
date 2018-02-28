@@ -17,12 +17,12 @@ import {hideModal} from './actions';
 class App extends Component {
 
     render() {
-        const {user, modalOptions} = this.props;
+        const {user, modalOptions, hideModal} = this.props;
         return (
             <div>
                 <Header/>
-                <Modal {...modalOptions} hideModal={hideModal} />
                 <div>
+                    <Modal hideModal={hideModal} {...modalOptions} />
                     <Switch>
                         {!user && <Route exact path="/timer" render={() => (<Redirect to="/"/>)}/>}
                         {!user && <Route exact path="/" component={Login}/>}
@@ -40,12 +40,16 @@ const mapStateToProps = createStructuredSelector({
     modalOptions: getModalOptions()
 });
 
-const withConnect = connect(mapStateToProps, {hideModal});
+const mapDispatchToProps = {
+    hideModal
+};
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({key: 'global', reducer});
 
 export default withRouter(compose(
     withReducer,
-    withConnect,
+    withConnect
 )(App));
 

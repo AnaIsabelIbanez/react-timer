@@ -1,1 +1,2 @@
-export const SET_USER = 'Login/SET_USER';
+export const SET_USER = 'App/SET_USER';
+export const HIDE_MODAL = 'App/HIDE_MODAL';

@@ -17,9 +17,10 @@ import {
     toggleExecutions,
     toggleAllExecutions,
     changeVisibleDay,
-    changeTaskName
+    changeTaskName,
+    setTaskToAdd
 } from './actions';
-import {getTasks, getCurrentTask} from './selectors';
+import {getTasks, getCurrentTask, getShowSpinner, getVisibleDay} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducer';
@@ -55,7 +56,10 @@ class TimerPage extends Component {
             toggleExecutions,
             toggleAllExecutions,
             changeVisibleDay,
-            changeTaskName
+            changeTaskName,
+            showSpinner,
+            setTaskToAdd,
+            visibleDay
         } = this.props;
 
         return (
@@ -69,12 +73,15 @@ class TimerPage extends Component {
                 />
                 {tasks.length > 0 && <ListContainer container>
                     <TasksList
+                        visibleDay={visibleDay}
                         tasks={tasks}
                         setCurrentTask={setCurrentTask}
                         toggleExecutions={toggleExecutions}
                         toggleAllExecutions={toggleAllExecutions}
                         changeVisibleDay={changeVisibleDay}
                         changeTaskName={changeTaskName}
+                        showSpinner={showSpinner}
+                        setTaskToAdd={setTaskToAdd}
                     />
                 </ListContainer>}
             </StyledGrid>
@@ -86,7 +93,9 @@ TimerPage.propTypes = {};
 
 const mapStateToProps = createStructuredSelector({
     currentTask: getCurrentTask(),
-    tasks: getTasks()
+    tasks: getTasks(),
+    showSpinner: getShowSpinner(),
+    visibleDay: getVisibleDay()
 });
 
 const mapDispatchToProps = {
@@ -99,7 +108,8 @@ const mapDispatchToProps = {
     toggleExecutions,
     toggleAllExecutions,
     changeVisibleDay,
-    changeTaskName
+    changeTaskName,
+    setTaskToAdd
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

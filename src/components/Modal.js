@@ -1,76 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Dialog, {DialogTitle, DialogContent, DialogActions} from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
 import Slide from 'material-ui/transitions/Slide';
 import Typography from 'material-ui/Typography';
-import grey from 'material-ui/colors/grey';
-
-// import IconError from 'components/icons/Error';
-// import IconWarning from 'components/icons/Warning';
-// import IconInfo from 'components/icons/Info';
-
-// const iconStyle = {
-//     position: 'relative',
-//     top: '0.2em'
-// };
-//
-// const styles = {
-//     dialog: {
-//         zIndex: 1000,
-//         top: '-20%'
-//     },
-//     dialogPaper: {
-//         maxWidth: '90%',
-//         width: '600px'
-//     },
-//     dialogContent: {
-//         color: grey[800]
-//     },
-//     iconError: {
-//         color: cssVariables.colorError,
-//         ...iconStyle
-//     },
-//     iconWarning: {
-//         color: cssVariables.colorWarning,
-//         ...iconStyle
-//     },
-//     iconInfo: {
-//         color: cssVariables.colorInfo,
-//         ...iconStyle
-//     }
-// };
-
-// const mapAction = (actions, closeModal, key) => (
-//     <Button
-//         key={key}
-//         color={key.includes('confirm') ? 'primary' : 'default'}
-//         raised={key.includes('confirm') ? true : false}
-//         onClick={() => {
-//             closeModal();
-//             actions[key] && actions[key]();
-//         }}
-//     >
-//         texto
-//     </Button>
-// );
+import { Error, Warning, AddAlert }  from 'material-ui-icons';
 
 const renderDetails = details => details.map((detail, idx) => <li key={idx}>{detail}</li>);
 
-//const renderButtons = (actions, closeModal) => Object.keys(actions).map(mapAction.bind(null, actions, closeModal));
-
-const renderIcon = (type, classes) => {
-    if (type === 'error') {
-        return 'error';
-    }
-
-    if (type === 'warning') {
-        return 'warning';
-    }
-
-    if (type === 'info') {
-        return 'info';
-    }
+const renderIcon = (type) => {
+    const iconTypes = {
+        error: <Error/>,
+        warning: <Warning/>,
+        info: <AddAlert/>
+    };
+    return iconTypes[type];
 };
 
 const Modal = ({
@@ -81,6 +24,7 @@ const Modal = ({
     message,
     details,
     classes,
+    hideModal,
     ...props
 }) => {
     const titleText = title;
@@ -91,12 +35,11 @@ const Modal = ({
             {...props}
             transitionDuration={150}
             transition={Slide}
-            onRequestClose={() => console.log('close')}
         >
             {titleText !== '' && (
                 <DialogTitle id="modal-title">
                     <span>
-                        {renderIcon(type, classes)} {titleText}
+                        {renderIcon(type)} {titleText}
                     </span>
                 </DialogTitle>
             )}
@@ -113,7 +56,7 @@ const Modal = ({
                     </div>
                 )}
             </DialogContent>
-            <DialogActions><Button>Close</Button></DialogActions>
+            <DialogActions><Button onClick={() => hideModal()}>Close</Button></DialogActions>
         </Dialog>
     );
 };

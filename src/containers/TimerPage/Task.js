@@ -27,7 +27,7 @@ const InputName = StyledInput.extend`
         font-size: 15px;
 `;
 
-export default ({task, setCurrentTask, changeTaskName, toggleExecutions}) => {
+export default ({task, setCurrentTask, changeTaskName, toggleExecutions, setTaskToAdd}) => {
     const severalExecutions = task.executions.length > 1;
     const showExecutions = severalExecutions && task.showExecutions === true;
     return (
@@ -40,6 +40,7 @@ export default ({task, setCurrentTask, changeTaskName, toggleExecutions}) => {
                     </NumberButton>}
                 </Grid>
                 <Grid item md={7}>
+                    {task.noPersisted === true && <button onClick={() => setTaskToAdd(task, true) }>reintentar</button>}
                     <InputName
                         onChange={({target}) => {
                             changeTaskName(task, target.value);

@@ -5,7 +5,7 @@ const baseUri = '/task';
 
 
 export const getTasks = (day) => api.get(`${baseUri}/${day.toISOString()}`);
-export const updateTask = (task) => api.post('/task', {body: ''});
+export const updateTask = (task) => api.post('/task', {body: {task}});
 
 // example
 // [{

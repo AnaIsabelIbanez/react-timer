@@ -1,5 +1,4 @@
 import {
-    ADD_TASK,
     INCREMENT_TIME,
     STOP_TIME,
     RESET,
@@ -10,13 +9,13 @@ import {
     TOGGLE_ALL_EXECUTIONS,
     CHANGE_VISIBLE_DAY,
     SET_TASKS,
-    CHANGE_TASK_NAME
+    CHANGE_TASK_NAME,
+    TOGGLE_SPINNER,
+    ADD_NO_PERSIST_TASK,
+    REMOVE_NO_PERSIST,
+    SET_TASK_TO_ADD,
+    REMOVE_TASK
 } from './constants';
-
-export const addTask = (currentTask) => ({
-    type: ADD_TASK,
-    payload: currentTask
-});
 
 export const initTime = () => ({
     type: INIT_TIME
@@ -66,4 +65,30 @@ export const setTasks = (tasks) => ({
 export const changeTaskName = (task, value) => ({
     type: CHANGE_TASK_NAME,
     payload: {task, value}
+});
+
+export const toggleSpinner = () => ({
+    type: TOGGLE_SPINNER
+});
+
+export const addNoPersistedTask = (task) => ({
+    type: ADD_NO_PERSIST_TASK,
+    payload: task
+});
+
+export const setTaskToAdd = (task, retried) => {
+    return {
+        type: SET_TASK_TO_ADD,
+        payload: task,
+        meta: retried
+    };
+};
+
+export const removeTaskToAdd = () => ({
+    type: REMOVE_TASK
+});
+
+export const removeNoPersist = (task) => ({
+    type: REMOVE_NO_PERSIST,
+    payload: task
 });

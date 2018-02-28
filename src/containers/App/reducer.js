@@ -1,5 +1,6 @@
 import {
-    SET_USER
+    SET_USER,
+    HIDE_MODAL
 } from './constants';
 
 const initialState = {
@@ -28,7 +29,7 @@ function appReducer(state = initialState, {type, payload}) {
                     open: true
                 }
             };
-        case 'HIDE_MODAL':
+        case HIDE_MODAL:
             const initialStateCopy = {...initialState};
             return {
                 ...state,

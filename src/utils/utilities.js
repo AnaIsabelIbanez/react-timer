@@ -26,7 +26,7 @@ export const getHourByTimestamp = (timeStamp) => {
 };
 
 export const getTimeStampByIsoString = (isoString) => {
-    return new Date(isoString);
+    return new Date(isoString).getTime();
 };
 
 export const addDays = (moment, days) => {
