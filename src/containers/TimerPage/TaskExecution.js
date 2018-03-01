@@ -10,7 +10,7 @@ export default ({taskExecution}) => {
             <Grid item md={1}/>
             <Grid item md={7}>{taskExecution.name}</Grid>
             <Grid item md={1}>
-                <Hour timestamp={taskExecution.initialTime} /> - <Hour timestamp={taskExecution.finalTime} />
+                <Hour momentObject={taskExecution.initialTime} /> - <Hour momentObject={taskExecution.finalTime} />
             </Grid>
             <Grid item md={1}>
                 <Clock seconds={taskExecution.seconds}/>

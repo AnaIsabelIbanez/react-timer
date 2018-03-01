@@ -3,8 +3,8 @@ body {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: normal;
     height: 100%;
-    margin:0;
-    overflow:hidden;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 * {

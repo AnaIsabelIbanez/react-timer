@@ -1,20 +1,24 @@
 import { createSelector } from 'reselect';
 
-const makeSelector = (state) => {
-    return state.timer;
+const makeSelectorTimerTask = (state) => {
+    return state.timerTask;
 };
 
-const makeSelect = (attribute) => createSelector(
-    makeSelector,
-    (timerState) => timerState[attribute]
+const makeSelectTimer = (attribute) => createSelector(
+    makeSelectorTimerTask,
+    (timerState) => timerState.timer[attribute]
 );
 
-const getTasks = () => makeSelect('tasks');
+const makeSelectTask = (attribute) => createSelector(
+    makeSelectorTimerTask,
+    (timerState) => timerState.tasks[attribute]
+);
 
-const getCurrentTask = () => makeSelect('currentTask');
-const getVisibleDay = () => makeSelect('visibleDay');
-const getShowSpinner = () => makeSelect('showSpinner');
-const getTaskToAdd = () => makeSelect('taskToAdd');
+const getTasks = () => makeSelectTask('tasks');
+const getCurrentTask = () => makeSelectTimer('currentTask');
+const getVisibleDay = () => makeSelectTask('visibleDay');
+const getShowSpinner = () => makeSelectTask('showSpinner');
+const getTaskToAdd = () => makeSelectTask('taskToAdd');
 
 export {
     getCurrentTask,

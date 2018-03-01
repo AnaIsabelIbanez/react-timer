@@ -4,14 +4,14 @@ import { KeyboardArrowLeft, KeyboardArrowRight }  from 'material-ui-icons';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
 import Task from './Task';
-import {getDayByTimesptamp, getTimeStampByIsoString} from '../../utils/utilities';
+import {getCalendarDay, getMomentByIsoString} from '../../utils/utilities';
 import StyledListItem from './StyledListItem';
 
 export default ({ tasks, setCurrentTask, toggleExecutions, toggleAllExecutions, changeVisibleDay, changeTaskName, showSpinner, setTaskToAdd, visibleDay }) => {
     const getDay = (key, timeStamp) => {
         console.log(key, timeStamp);
     };
-    const taskDay = getDayByTimesptamp(visibleDay.valueOf());
+    const taskDay = getCalendarDay(visibleDay);
     return (
         <Grid container>
             {tasks.length > 0
@@ -40,7 +40,7 @@ export default ({ tasks, setCurrentTask, toggleExecutions, toggleAllExecutions, 
                             </Grid>
                         </Grid>
                         {tasks.filter((task1) => {
-                            return getDayByTimesptamp(task1.initialTime) === getDayByTimesptamp(visibleDay.valueOf());
+                            return getCalendarDay(task1.initialTime) === getCalendarDay(visibleDay);
                         }).map((task, index) =>
                             (
                                 <StyledListItem component="div" key={index}>

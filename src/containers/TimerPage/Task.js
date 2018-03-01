@@ -28,7 +28,7 @@ const InputName = StyledInput.extend`
 `;
 
 export default ({task, setCurrentTask, changeTaskName, toggleExecutions, setTaskToAdd}) => {
-    const severalExecutions = task.executions.length > 1;
+    const severalExecutions = task.executions && task.executions.length > 1;
     const showExecutions = severalExecutions && task.showExecutions === true;
     return (
         <Grid container>
@@ -49,7 +49,7 @@ export default ({task, setCurrentTask, changeTaskName, toggleExecutions, setTask
                     />
                 </Grid>
                 <Grid item md={1}>
-                    <Hour timestamp={task.initialTime} /> - <Hour timestamp={task.finalTime} />
+                    <Hour momentObject={task.initialTime} /> - <Hour momentObject={task.finalTime} />
                 </Grid>
                 <Grid item md={1}>
                     <Clock seconds={task.seconds}/>
@@ -67,7 +67,7 @@ export default ({task, setCurrentTask, changeTaskName, toggleExecutions, setTask
                 <Grid item md={12}>
                     <Collapse in={showExecutions} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding >
-                            {task.executions.map((execution, index) => (
+                            {task.executions && task.executions.map((execution, index) => (
                                 <ExecutionListItem component="div" key={index}>
                                     <TaskExecution taskExecution={execution} />
                                 </ExecutionListItem>

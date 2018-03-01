@@ -11,10 +11,10 @@ import {
     SET_TASKS,
     CHANGE_TASK_NAME,
     TOGGLE_SPINNER,
-    ADD_NO_PERSIST_TASK,
     REMOVE_NO_PERSIST,
     SET_TASK_TO_ADD,
-    REMOVE_TASK
+    REMOVE_TASK,
+    ADD_TASK
 } from './constants';
 
 export const initTime = () => ({
@@ -71,8 +71,8 @@ export const toggleSpinner = () => ({
     type: TOGGLE_SPINNER
 });
 
-export const addNoPersistedTask = (task) => ({
-    type: ADD_NO_PERSIST_TASK,
+export const addTask = (task) => ({
+    type: ADD_TASK,
     payload: task
 });
 

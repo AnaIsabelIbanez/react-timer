@@ -1,50 +1,51 @@
 import {
-    CHANGE_CURRENT_TASK_NAME,
-    SET_TASK,
-    INCREMENT_TIME,
-    INIT_TIME,
-    STOP_TIME,
-    RESET,
     TOGGLE_EXECUTIONS,
-    STATUS_RUNNING,
-    STATUS_STOPPED,
     TOGGLE_ALL_EXECUTIONS,
     CHANGE_VISIBLE_DAY,
     SET_TASKS,
     CHANGE_TASK_NAME,
     TOGGLE_SPINNER,
-    ADD_NO_PERSIST_TASK,
     SET_TASK_TO_ADD,
     REMOVE_TASK,
-    REMOVE_NO_PERSIST
-} from './constants';
+    REMOVE_NO_PERSIST,
+    ADD_TASK
+} from '../constants';
 
-import {getCalendarDay, addDays, getMomentByIsoString} from '../../utils/utilities';
+import {getCalendarDay, addDays, getMomentByIsoString} from '../../../utils/utilities';
 import moment from 'moment/moment';
+import {findStorageItems, getFromLocalStorage} from '../../../utils/utilities';
+
+const parsedTaskFromBackendOrStorage = (task) => {
+    task.initialTime = getMomentByIsoString(task.initialTime);
+    task.finalTime = getMomentByIsoString(task.finalTime);
+    if (task.executions) {
+        task.executions = task.executions.map((execution) => {
+            execution.initialTime = getMomentByIsoString(execution.initialTime);
+            execution.finalTime = getMomentByIsoString(execution.finalTime);
+            return execution;
+        });
+    }
+    return task;
+};
+
+const getParsedAllTasks = (tasks) => {
+    return tasks.map((task) => {
+        return parsedTaskFromBackendOrStorage(task);
+    });
+};
+
+const getTasksFromStorage = () => {
+    const storagedTasks = getFromLocalStorage('tasks');
+    return storagedTasks ? getParsedAllTasks(storagedTasks) : [];
+};
+
 
 const initialState = {
-    currentTask: {
-        name: '',
-        seconds: 0,
-        status: STATUS_STOPPED,
-        initialTime: null,
-        finalTime: null
-    },
-    tasks: [],
+    tasks: getTasksFromStorage(),
     showAll: false,
     visibleDay: moment(),
     showSpinner: false,
     taskToAdd: null
-};
-
-const setCurrentTask = (state, newAttributeCurrentTask) => {
-    return {
-        ...state,
-        currentTask: {
-            ...state.currentTask,
-            ...newAttributeCurrentTask
-        }
-    };
 };
 
 const areTheSameTasks = (taskA, taskB) => {
@@ -65,25 +66,16 @@ const toggleExecution = (tasks, taskToUpdate) => {
     return copiedTasks;
 };
 
-const updateTaskName = (tasks, taskToUpdate, attribute, value) => {
+const updateTaskName = (tasks, taskToUpdate, value) => {
     const copiedTasks = [...tasks];
     const task = copiedTasks.find((task) => (areTheSameTasks(task, taskToUpdate)));
-    task[attribute] = value;
+    task.name = value;
     task.executions = changeAllExecutions(task.executions, 'name', value);
     return copiedTasks;
 };
 
 const getTasks = (state, newtasks) => {
-    const parsedNewTasks = newtasks.map((task) => {
-        task.initialTime = getMomentByIsoString(task.initialTime);
-        task.finalTime = getMomentByIsoString(task.finalTime);
-        task.executions = task.executions.map((execution) => {
-            execution.initialTime = getMomentByIsoString(execution.initialTime);
-            execution.finalTime = getMomentByIsoString(execution.finalTime);
-            return execution;
-        });
-        return task;
-    });
+    const parsedNewTasks = getParsedAllTasks(newtasks);
     const noPersistedTasks = state.tasks.filter((task) => {
         return task.noPersisted === true;
     });
@@ -105,8 +97,9 @@ const addTask = (state, executionToAdd) => {
     if (taskIndex > -1) {
         const taskUpdate = copiedTasks[taskIndex];
         taskUpdate.finalTime = executionToAdd.finalTime;
-        taskUpdate.seconds += executionToAdd.seconds;
+        taskUpdate.noPersisted = executionToAdd.noPersisted;
         if (state.taskToAdd.retried !== true) {
+            taskUpdate.seconds += executionToAdd.seconds;
             taskUpdate.executions.push(executionToAdd);
         }
         taskUpdate.showExecutions = false;
@@ -126,23 +119,12 @@ const getTasksRemovePersist = (tasks, taskToUpdate) => {
     return copiedTasks;
 };
 
-function TimerReducer(state = initialState, {type, payload, meta}) {
+function TasksReducer(state = initialState, {type, payload, meta}) {
 
     switch (type) {
-        case CHANGE_CURRENT_TASK_NAME:
-            return setCurrentTask(state, {name: payload});
-        case INCREMENT_TIME:
-            return setCurrentTask(state, {seconds: state.currentTask.seconds + 1});
-        case RESET:
-            return setCurrentTask(state, initialState.currentTask);
-        case INIT_TIME:
-            return setCurrentTask(state, {status: STATUS_RUNNING, initialTime: Date.now()});
-        case STOP_TIME:
-            return setCurrentTask(state, {status: STATUS_STOPPED, finalTime: Date.now()});
-        case SET_TASK:
-            return setCurrentTask(state, {name: payload.name, seconds: 0});
         case TOGGLE_ALL_EXECUTIONS:
             const newShowAll = !state.showAll;
+            getTasksFromStorage();
             return {
                 ...state,
                 showAll: newShowAll,
@@ -166,7 +148,7 @@ function TimerReducer(state = initialState, {type, payload, meta}) {
         case CHANGE_TASK_NAME:
             return {
                 ...state,
-                tasks: updateTaskName(state.tasks, payload.task, 'name', payload.value)
+                tasks: updateTaskName(state.tasks, payload.task, payload.value)
             };
         case TOGGLE_SPINNER:
             return {
@@ -201,4 +183,4 @@ function TimerReducer(state = initialState, {type, payload, meta}) {
     }
 }
 
-export default TimerReducer;
+export default TasksReducer;

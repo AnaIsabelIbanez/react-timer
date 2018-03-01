@@ -23,7 +23,7 @@ import {
 import {getTasks, getCurrentTask, getShowSpinner, getVisibleDay} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
-import reducer from './reducer';
+import reducer from './reducer/rootReducers';
 import saga from './saga/rootSagas';
 
 const StyledGrid = styled(CustomGrid)`
@@ -113,7 +113,7 @@ const mapDispatchToProps = {
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({key: 'timer', reducer});
+const withReducer = injectReducer({key: 'timerTask', reducer});
 const withSaga = injectSaga({key: 'timer', saga});
 
 export default compose(

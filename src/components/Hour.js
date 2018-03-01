@@ -1,8 +1,8 @@
 import React from 'react';
-import { getHourByTimestamp } from '../utils/utilities';
+import { getHour } from '../utils/utilities';
 
-export default ({timestamp}) => (
+export default ({momentObject}) => (
     <span>
-        {getHourByTimestamp(timestamp)}
+        {getHour(momentObject)}
     </span>
 );

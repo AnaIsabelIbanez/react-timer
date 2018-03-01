@@ -1,45 +1,36 @@
 import {call, put, select, actionChannel, take} from 'redux-saga/effects';
+import {delay} from 'redux-saga';
 
-import {addNoPersistedTask, changeVisibleDay, removeTaskToAdd, removeNoPersist, setTaskToAdd} from '../actions';
-import {getTaskToAdd} from '../selectors';
+import {addTask, changeVisibleDay, removeTaskToAdd, removeNoPersist, setTaskToAdd} from '../actions';
+import {getTaskToAdd, getTasks} from '../selectors';
 import {updateTask} from '../../../api/task';
 import {showError} from '../../App/actions';
 
 
-export default function* addTask() {
+export default function* addTaskSaga() {
     const {task} = yield select(getTaskToAdd());
+    const tasks = yield select(getTasks());
+    const noPersistedTasks = tasks.filter((task) => task.noPersisted === true);
+    noPersistedTasks.push({...task, noPersisted: true});
     yield put(removeNoPersist(task));
-    try {
-        yield call(updateTask, task);
-        yield put(changeVisibleDay(0));
-    } catch (error) {
-        yield put(showError(error));
-        yield put(addNoPersistedTask(task));
-        yield put(setTaskToAdd(task));
-    } finally {
-        yield put (removeTaskToAdd());
+    let ok = false;
+    for (let i = 1; i <= 5; i++) {
+        try {
+            yield call(updateTask, task, noPersistedTasks);
+            ok = true;
+        } catch (error) {
+            task.noPersisted = true;
+            if (i < 5) {
+                yield call(delay, 2000);
+            } else {
+                yield put(showError(error));
+            }
+        } finally {
+            if (ok === true || i === 5) {
+                yield put(addTask(task));
+                yield put(removeTaskToAdd());
+                return;
+            }
+        }
     }
 }
-
-
-// export default function* addTask() {
-//     const chanel = yield actionChannel('SET_TASK_TO_ADD');
-//     while (true) {
-//
-//         const {payload} = yield take(chanel);
-//         const task = payload;
-//         //const {task} = yield select(getTaskToAdd());
-//         yield put(removeNoPersist(task));
-//         try {
-//             yield call(updateTask, task);
-//             yield put(changeVisibleDay(0));
-//         } catch (error) {
-//             yield put(showError(error));
-//             yield put(addNoPersistedTask(task));
-//             yield put(setTaskToAdd(task));
-//         } finally {
-//             yield put(removeTaskToAdd());
-//             break;
-//         }
-//     }
-// }
