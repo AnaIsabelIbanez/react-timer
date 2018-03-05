@@ -41,15 +41,17 @@ export const getFromLocalStorage = key => {
     return JSON.parse(localStorage.getItem(key));
 };
 
+export const removeFromLocalStorage = key => {
+    localStorage.removeItem(key);
+};
+
 export const findStorageItems = (text) => {
     let item;
     let results = [];
     for (item in localStorage) {
-        if (localStorage.hasOwnProperty(item)) {
-            if (item.match(text)) {
-                const value = JSON.parse(localStorage.getItem(item));
-                results.push({key: item, val: value});
-            }
+        if (item.match(text) && localStorage.getItem(item)) {
+            const value = JSON.parse(localStorage.getItem(item));
+            results.push({key: item, val: value});
         }
     }
     return results;

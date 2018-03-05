@@ -8,6 +8,7 @@ import Hour from '../../components/Hour';
 import TaskExecution from './TaskExecution';
 import StyledListItem from './StyledListItem';
 import StyledInput from '../../components/StyledInput';
+import {STATUS_RUNNING} from './constants';
 
 const NumberButton = styled.button`
     && {
@@ -27,7 +28,7 @@ const InputName = StyledInput.extend`
         font-size: 15px;
 `;
 
-export default ({task, setCurrentTask, changeTaskName, toggleExecutions, setTaskToAdd}) => {
+export default ({task, setCurrentTask, changeTaskName, toggleExecutions, setExecutionToAdd, retryExecutionsTask, currentTask, setTaskToChangeName}) => {
     const severalExecutions = task.executions && task.executions.length > 1;
     const showExecutions = severalExecutions && task.showExecutions === true;
     return (
@@ -40,11 +41,12 @@ export default ({task, setCurrentTask, changeTaskName, toggleExecutions, setTask
                     </NumberButton>}
                 </Grid>
                 <Grid item md={7}>
-                    {task.noPersisted === true && <button onClick={() => setTaskToAdd(task, true) }>reintentar</button>}
+                    {task.noPersisted === true && <button onClick={() => retryExecutionsTask(task, true) }>reintentar</button>}
                     <InputName
                         onChange={({target}) => {
                             changeTaskName(task, target.value);
                         }}
+                        onBlur={() => {setTaskToChangeName(task);}}
                         value={task.name}
                     />
                 </Grid>
@@ -55,7 +57,7 @@ export default ({task, setCurrentTask, changeTaskName, toggleExecutions, setTask
                     <Clock seconds={task.seconds}/>
                 </Grid>
                 <Grid item md={1}>
-                    <IconButton onClick={() => setCurrentTask(task)}>
+                    <IconButton disabled={currentTask.status === STATUS_RUNNING} onClick={() => setCurrentTask(task)}>
                         <PlayArrow/>
                     </IconButton>
                 </Grid>
@@ -69,7 +71,7 @@ export default ({task, setCurrentTask, changeTaskName, toggleExecutions, setTask
                         <List component="div" disablePadding >
                             {task.executions && task.executions.map((execution, index) => (
                                 <ExecutionListItem component="div" key={index}>
-                                    <TaskExecution taskExecution={execution} />
+                                    <TaskExecution taskExecution={execution} setExecutionToAdd={setExecutionToAdd} />
                                 </ExecutionListItem>
                             ))}
                         </List>

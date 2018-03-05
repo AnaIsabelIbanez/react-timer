@@ -18,7 +18,10 @@ import {
     toggleAllExecutions,
     changeVisibleDay,
     changeTaskName,
-    setTaskToAdd
+    setExecutionToAdd,
+    retryUpdateTasks,
+    retryExecutionsTask,
+    setTaskToChangeName
 } from './actions';
 import {getTasks, getCurrentTask, getShowSpinner, getVisibleDay} from './selectors';
 import injectReducer from '../../utils/injects/injectReducer';
@@ -43,6 +46,7 @@ class TimerPage extends Component {
 
     componentWillMount() {
         this.props.changeVisibleDay(0);
+        this.props.retryUpdateTasks();
     }
 
     render() {
@@ -58,8 +62,10 @@ class TimerPage extends Component {
             changeVisibleDay,
             changeTaskName,
             showSpinner,
-            setTaskToAdd,
-            visibleDay
+            setExecutionToAdd,
+            visibleDay,
+            retryExecutionsTask,
+            setTaskToChangeName
         } = this.props;
 
         return (
@@ -81,7 +87,10 @@ class TimerPage extends Component {
                         changeVisibleDay={changeVisibleDay}
                         changeTaskName={changeTaskName}
                         showSpinner={showSpinner}
-                        setTaskToAdd={setTaskToAdd}
+                        setExecutionToAdd={setExecutionToAdd}
+                        retryExecutionsTask={retryExecutionsTask}
+                        currentTask={currentTask}
+                        setTaskToChangeName={setTaskToChangeName}
                     />
                 </ListContainer>}
             </StyledGrid>
@@ -109,7 +118,10 @@ const mapDispatchToProps = {
     toggleAllExecutions,
     changeVisibleDay,
     changeTaskName,
-    setTaskToAdd
+    setExecutionToAdd,
+    retryUpdateTasks,
+    retryExecutionsTask,
+    setTaskToChangeName
 };
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

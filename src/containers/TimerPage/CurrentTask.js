@@ -51,7 +51,8 @@ export default ({ currentTask, initTime, changeCurrentTaskName, setCurrentTask, 
                         <StyledClock seconds={currentTask.seconds}/>
                     </Grid>
                     <Grid item>
-                        {currentTask.status === STATUS_STOPPED && <IconButton onClick={() => setCurrentTask(currentTask)}><PlayCircleFilled/></IconButton>}
+                        {currentTask.status === STATUS_STOPPED && <IconButton green500 primary
+                            onClick={() => setCurrentTask(currentTask)}><PlayCircleFilled green500/></IconButton>}
                         {currentTask.status === STATUS_RUNNING && <IconButton onClick={() => stopTime()}><Pause/></IconButton>}
                     </Grid>
                 </Grid>

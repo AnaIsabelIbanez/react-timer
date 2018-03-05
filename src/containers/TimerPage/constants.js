@@ -11,10 +11,14 @@ export const CHANGE_VISIBLE_DAY = 'TimerPage/CHANGE_VISIBLE_DAY';
 export const SET_TASKS = 'TimerPage/SET_TASKS';
 export const CHANGE_TASK_NAME = 'TimerPage/CHANGE_TASK_NAME';
 export const TOGGLE_SPINNER = 'TimerPage/TOGGLE_SPINNER';
-export const SET_TASK_TO_ADD = 'TimerPage/SET_TASK_TO_ADD';
-export const REMOVE_TASK = 'TimerPage/REMOVE_TASK';
+export const RETRY_EXECUTIONS_TASK = 'TimerPage/RETRY_EXECUTIONS_TASK';
+export const SET_EXECUTION_TO_ADD = 'TimerPage/SET_EXECUTION_TO_ADD';
+export const REMOVE_EXECUTION = 'TimerPage/REMOVE_EXECUTION';
 export const REMOVE_NO_PERSIST = 'TimerPage/REMOVE_NO_PERSIST';
+export const RETRY_UPDATE = 'TimerPage/RETRY_UPDATE';
+export const SET_TASK_TO_CHANGE_NAME = 'TimerPage/SET_TASK_TO_CHANGE_NAME';
+export const CHANGE_NO_PERSISTED = 'TimerPage/CHANGE_NO_PERSISTED';
 
-
+export const TASK_STORAGE_KEY = 'TASK_';
 export const STATUS_RUNNING = 'running';
 export const STATUS_STOPPED = 'stopped';

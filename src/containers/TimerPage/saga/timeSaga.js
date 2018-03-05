@@ -1,7 +1,7 @@
 import {actionChannel, call, take, put, race, select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 
-import {incrementTime, reset, initTime, setTaskToAdd} from '../actions';
+import {incrementTime, reset, initTime, setExecutionToAdd} from '../actions';
 import {getCurrentTask} from '../selectors';
 import {STOP_TIME, SET_TASK} from '../constants';
 
@@ -19,7 +19,7 @@ export default function* runTimer() {
                 yield put(incrementTime());
             } else {
                 const currentTask = yield select(getCurrentTask());
-                yield put(setTaskToAdd(currentTask));
+                yield put(setExecutionToAdd(currentTask));
                 yield put(reset());
                 break;
             }

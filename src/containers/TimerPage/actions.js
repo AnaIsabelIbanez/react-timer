@@ -12,9 +12,13 @@ import {
     CHANGE_TASK_NAME,
     TOGGLE_SPINNER,
     REMOVE_NO_PERSIST,
-    SET_TASK_TO_ADD,
-    REMOVE_TASK,
-    ADD_TASK
+    RETRY_EXECUTIONS_TASK,
+    SET_EXECUTION_TO_ADD,
+    REMOVE_EXECUTION,
+    ADD_TASK,
+    RETRY_UPDATE,
+    SET_TASK_TO_CHANGE_NAME,
+    CHANGE_NO_PERSISTED
 } from './constants';
 
 export const initTime = () => ({
@@ -71,24 +75,43 @@ export const toggleSpinner = () => ({
     type: TOGGLE_SPINNER
 });
 
-export const addTask = (task) => ({
+export const addTask = (task, retried) => ({
     type: ADD_TASK,
-    payload: task
+    payload: task,
+    meta: retried
 });
 
-export const setTaskToAdd = (task, retried) => {
+export const setExecutionToAdd = (execution, retried) => {
     return {
-        type: SET_TASK_TO_ADD,
-        payload: task,
-        meta: retried
+        type: SET_EXECUTION_TO_ADD,
+        payload: execution
     };
 };
 
-export const removeTaskToAdd = () => ({
-    type: REMOVE_TASK
+export const removeExecutionToAdd = () => ({
+    type: REMOVE_EXECUTION
 });
 
 export const removeNoPersist = (task) => ({
     type: REMOVE_NO_PERSIST,
+    payload: task
+});
+
+export const retryUpdateTasks = () => ({
+    type: RETRY_UPDATE
+});
+
+export const retryExecutionsTask = (task) => ({
+    type: RETRY_EXECUTIONS_TASK,
+    payload: task
+});
+
+export const setTaskToChangeName = (task) => ({
+    type: SET_TASK_TO_CHANGE_NAME,
+    payload: task
+});
+
+export const changeNoPersisted = (task) => ({
+    type: CHANGE_NO_PERSISTED,
     payload: task
 });

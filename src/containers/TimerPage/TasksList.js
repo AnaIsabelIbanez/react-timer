@@ -7,10 +7,7 @@ import Task from './Task';
 import {getCalendarDay, getMomentByIsoString} from '../../utils/utilities';
 import StyledListItem from './StyledListItem';
 
-export default ({ tasks, setCurrentTask, toggleExecutions, toggleAllExecutions, changeVisibleDay, changeTaskName, showSpinner, setTaskToAdd, visibleDay }) => {
-    const getDay = (key, timeStamp) => {
-        console.log(key, timeStamp);
-    };
+export default ({ tasks, setCurrentTask, toggleExecutions, toggleAllExecutions, changeVisibleDay, changeTaskName, showSpinner, setExecutionToAdd, visibleDay, retryExecutionsTask, currentTask, setTaskToChangeName }) => {
     const taskDay = getCalendarDay(visibleDay);
     return (
         <Grid container>
@@ -49,7 +46,10 @@ export default ({ tasks, setCurrentTask, toggleExecutions, toggleAllExecutions, 
                                         setCurrentTask={setCurrentTask}
                                         toggleExecutions={toggleExecutions}
                                         changeTaskName={changeTaskName}
-                                        setTaskToAdd={setTaskToAdd}
+                                        setExecutionToAdd={setExecutionToAdd}
+                                        retryExecutionsTask={retryExecutionsTask}
+                                        currentTask={currentTask}
+                                        setTaskToChangeName={setTaskToChangeName}
                                     />
                                 </StyledListItem>
                             ))

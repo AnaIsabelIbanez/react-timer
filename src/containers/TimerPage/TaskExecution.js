@@ -4,9 +4,10 @@ import Grid from 'material-ui/Grid';
 import Clock from '../../components/Clock';
 import Hour from '../../components/Hour';
 
-export default ({taskExecution}) => {
+export default ({taskExecution, setExecutionToAdd}) => {
     return (
         <Grid container style={{height: '150', margin: 'auto'}}>
+            {taskExecution.noPersisted === true && <button onClick={() => setExecutionToAdd(taskExecution) }>reintentar</button>}
             <Grid item md={1}/>
             <Grid item md={7}>{taskExecution.name}</Grid>
             <Grid item md={1}>

@@ -18,12 +18,16 @@ const getTasks = () => makeSelectTask('tasks');
 const getCurrentTask = () => makeSelectTimer('currentTask');
 const getVisibleDay = () => makeSelectTask('visibleDay');
 const getShowSpinner = () => makeSelectTask('showSpinner');
-const getTaskToAdd = () => makeSelectTask('taskToAdd');
+const getExecutionToAdd = () => makeSelectTask('executionToAdd');
+const getTaskToRetry = () => makeSelectTask('taskToRetry');
+const getTaskToChangeName = () => makeSelectTask('taskToChangeName');
 
 export {
     getCurrentTask,
     getTasks,
     getVisibleDay,
     getShowSpinner,
-    getTaskToAdd
+    getExecutionToAdd,
+    getTaskToRetry,
+    getTaskToChangeName
 };
