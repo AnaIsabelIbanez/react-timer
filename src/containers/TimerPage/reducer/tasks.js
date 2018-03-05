@@ -152,7 +152,7 @@ const getTasksRemovePersist = (tasks, taskToUpdate) => {
 
 const getTasksAddNoPersistExec = (tasks, exec) => {
 
-}
+};
 
 function TasksReducer(state = initialState, {type, payload, meta}) {
 
